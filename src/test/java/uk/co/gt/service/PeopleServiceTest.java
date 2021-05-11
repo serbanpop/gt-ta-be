@@ -14,10 +14,10 @@ import uk.co.gt.model.Person;
 import uk.co.gt.repository.AddressBook;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static uk.co.gt.service.PeopleServiceTest.*;
@@ -39,7 +39,7 @@ class PeopleServiceTest {
 
     @ParameterizedTest
     @ArgumentsSource(PeopleByGenerArgumentsProvider.class)
-    void countsPeopleByGender(List<Person> people, String gender, long expectedCount) {
+    void countsPeopleByGender(Set<Person> people, String gender, long expectedCount) {
         given(addressBook.people()).willReturn(people);
 
         assertThat(testInstance.countBy(gender)).isEqualTo(expectedCount);
@@ -48,7 +48,7 @@ class PeopleServiceTest {
 
     @ParameterizedTest
     @ArgumentsSource(PeopleByAgeArgumentsProvider.class)
-    void retrievesOldestPerson(List<Person> people, Person expectedOldestPerson) {
+    void retrievesOldestPerson(Set<Person> people, Person expectedOldestPerson) {
         given(addressBook.people()).willReturn(people);
 
         assertThat(testInstance.oldestPerson()).contains(expectedOldestPerson);
@@ -56,7 +56,7 @@ class PeopleServiceTest {
 
     @Test
     void doesNotRetrievesOldestPersonWhenAddressBookIsEmpty() {
-        given(addressBook.people()).willReturn(emptyList());
+        given(addressBook.people()).willReturn(emptySet());
 
         assertThat(testInstance.oldestPerson()).isEmpty();
     }
@@ -68,10 +68,10 @@ class PeopleByGenerArgumentsProvider implements ArgumentsProvider {
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
         return Stream.of(
-                Arguments.of(emptyList(), "Female", 0),
-                Arguments.of(List.of(BILL), "Male", 1),
-                Arguments.of(List.of(BILL, PAUL), "Male", 2),
-                Arguments.of(List.of(BILL, GEMMA, SARAH, WES), "Female", 2)
+                Arguments.of(emptySet(), "Female", 0),
+                Arguments.of(Set.of(BILL), "Male", 1),
+                Arguments.of(Set.of(BILL, PAUL), "Male", 2),
+                Arguments.of(Set.of(BILL, GEMMA, SARAH, WES), "Female", 2)
         );
     }
 }
@@ -81,9 +81,9 @@ class PeopleByAgeArgumentsProvider implements ArgumentsProvider {
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
         return Stream.of(
-                Arguments.of(List.of(PAUL), PAUL),
-                Arguments.of(List.of(BILL, PAUL), BILL),
-                Arguments.of(List.of(BILL, PAUL, GEMMA, SARAH, WES), WES)
+                Arguments.of(Set.of(PAUL), PAUL),
+                Arguments.of(Set.of(BILL, PAUL), BILL),
+                Arguments.of(Set.of(BILL, PAUL, GEMMA, SARAH, WES), WES)
         );
     }
 }

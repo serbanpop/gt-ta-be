@@ -2,21 +2,21 @@ package uk.co.gt.repository;
 
 import uk.co.gt.model.Person;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableSet;
 
 public class AddressBook {
 
-    private final List<Person> book = new ArrayList<>();
+    private final Set<Person> book = new LinkedHashSet<>();
 
     public boolean addPerson(Person person) {
         return book.add(person);
     }
 
-    public List<Person> people() {
-        return unmodifiableList(people());
+    public Set<Person> people() {
+        return unmodifiableSet(people());
     }
 
 }
