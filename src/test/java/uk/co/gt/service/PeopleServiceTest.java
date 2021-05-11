@@ -14,7 +14,6 @@ import uk.co.gt.exception.PersonNotFoundException;
 import uk.co.gt.model.Person;
 import uk.co.gt.repository.AddressBook;
 
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -24,16 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static uk.co.gt.service.PeopleServiceTest.*;
+import static uk.co.gt.TestData.*;
 
 @ExtendWith(MockitoExtension.class)
 class PeopleServiceTest {
-
-    public static final Person BILL = new Person("Bill McKnight", "Male", LocalDate.of(1977, 3, 16));
-    public static final Person PAUL = new Person("Paul Robinson", "Male", LocalDate.of(1985, 1, 15));
-    public static final Person GEMMA = new Person("Gemma Lane", "Female", LocalDate.of(1991, 11, 29));
-    public static final Person SARAH = new Person("Sarah Stone", "Female", LocalDate.of(1980, 9, 20));
-    public static final Person WES = new Person("Wes Jackson", "Male", LocalDate.of(1974, 8, 14));
 
     @Mock
     private AddressBook addressBook;

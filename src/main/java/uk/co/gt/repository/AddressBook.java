@@ -10,18 +10,18 @@ import static java.util.Collections.unmodifiableSet;
 
 public class AddressBook {
 
-    private final Set<Person> book = new LinkedHashSet<>();
+    private final Set<Person> people = new LinkedHashSet<>();
 
     public boolean addPerson(Person person) {
-        return book.add(person);
+        return people.add(person);
     }
 
     public Set<Person> people() {
-        return unmodifiableSet(people());
+        return unmodifiableSet(people);
     }
 
     public Optional<Person> getBy(String firstName) {
-        return book.stream()
+        return people.stream()
                 .filter(person -> person.getName().startsWith(firstName))
                 .findFirst();
     }
